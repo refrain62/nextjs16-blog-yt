@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Suspense } from "react";
 
 interface Post {
   title: string;
@@ -26,7 +27,6 @@ const japaneseConotext = [
 
 
 async function getPosts(){
-  "use cache";
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const posts = await res.json();
   return posts;
@@ -87,7 +87,9 @@ export default function PostsPages() {
           </p>
         </header>
 
-        <PostsList />
+        <Suspense fallback={<div>Loading posts...</div>}>
+          <PostsList />
+        </Suspense>
       </div>
     </div>
   )
