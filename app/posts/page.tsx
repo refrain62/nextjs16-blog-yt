@@ -25,10 +25,19 @@ const japaneseConotext = [
 ];
 
 
+async function getPosts(){
+  "use cache";
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const posts = await res.json();
+  return posts;
+}
+
 async function PostsList() {
+  const posts = await getPosts();
+
   return (
     <div className="space-y-12">
-      {japaneseConotext.map((post) => (
+      {posts.map((post) => (
         <Link
           key={post.title}
           href={`/posts/${post.title}`}
@@ -70,7 +79,7 @@ export default function PostsPages() {
     <div className="min-h-screen bg-white dardk;bg-zinc-9050">
       <div className="mx-auto max-w-3x1 px-6 py-24">
         <header className="mb-16">
-          <h1 className="text-5x1 font-bold tracking-tight text-zinc-900 dark:text-z-inc-600">
+          <h1 className="text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-600">
             ブログ
           </h1>
           <p className="mt-4 text-lg text-zinc-600 dark:text-zinc-400">
