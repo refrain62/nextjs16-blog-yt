@@ -1,3 +1,4 @@
+import { cacheLife } from "next/cache";
 import Link from "next/link"
 import { Suspense } from "react";
 
@@ -27,6 +28,8 @@ const japaneseConotext = [
 
 
 async function getPosts(): Promise<Post[]> {
+  "use cache";
+  cacheLife("days");
   const res = await fetch('https://jsonplaceholder.typicode.com/posts');
   const posts = await res.json();
   return posts;
@@ -87,7 +90,7 @@ export default function PostsPages() {
           </p>
         </header>
 
-        <Suspense 
+        {/* <Suspense 
           fallback={
             <div className="space-y-12">
               {[...Array(3)].map((_, i) => (
@@ -101,9 +104,9 @@ export default function PostsPages() {
               ))}
             </div>
           }
-        >
+        > */}
           <PostsList />
-        </Suspense>
+        {/* </Suspense> */}
       </div>
     </div>
   )
