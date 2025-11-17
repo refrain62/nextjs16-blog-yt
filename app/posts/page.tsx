@@ -87,7 +87,21 @@ export default function PostsPages() {
           </p>
         </header>
 
-        <Suspense fallback={<div>Loading posts...</div>}>
+        <Suspense 
+          fallback={
+            <div className="space-y-12">
+              {[...Array(3)].map((_, i) => (
+                <div 
+                  key={i} 
+                  className="animate-pulse border-b border-zinc-200 pb-12 dark:border-zinc-800">
+                  <div className="mb-3 h-8 w-3/4 rounded bg-zinc-200 dark:bg-zinc-800" />
+                  <div className="h-4 w-full rounded bg-zinc-200 dark:bg-zinc-800" />
+                  <div className="mt-2 h-4 w-5/6 rounded bg-zinc-200 dark:bg-zinc-800" />
+                </div>
+              ))}
+            </div>
+          }
+        >
           <PostsList />
         </Suspense>
       </div>
